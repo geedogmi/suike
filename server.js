@@ -18,7 +18,7 @@ const pool = mariadb.createPool({
 // __dirname 설정 (ESM 모듈을 사용하는 경우)
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
-// 'dist' 디렉터리의 정적 파일 제공
+// 'dist' 디렉터리의 정적 파일 연결
 app.use('/sub', express.static(path.join(__dirname, '/sub')));
 app.use(express.static(path.join(__dirname, 'dist')));
 app.use(express.json());
@@ -36,7 +36,7 @@ app.post('/submit-score', async (req, res) => {
     }
 });
 
-app.get('/rankings', async (req, res) => {
+app.get('/rankinngs', async (req, res) => {
     try {
         const conn = await pool.getConnection();
         const rows = await conn.query("SELECT score FROM rankings ORDER BY score DESC LIMIT 5");
@@ -48,7 +48,7 @@ app.get('/rankings', async (req, res) => {
     }
 });
 
-// 루트 URL 요청 시 루트 디렉터리의 index.html 제공
+// 루트 URL 요청 시 루트 디렉터리의 index.html 연결
 app.get('*', (req, res) => {
     res.sendFile(path.join(__dirname, 'index.html'));
 });
