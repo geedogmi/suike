@@ -1,0 +1,98 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>수박게임</title>
+
+    
+    <style>
+      body {
+        text-align: center;
+        background-color: #526270; /* 배경색 변경 */
+      }
+
+
+      
+      #score {
+        display: inline-block;
+
+        top: 50%; /* 상단에서부터 뷰포트 높이의 절반 */
+        transform: translateY(-710%); /* Y축으로 -50% 이동하여 세로 중앙 정렬 */
+        margin-left: 50px; /* 왼쪽 여백 */
+        margin-right: 450px;
+        margin-top: 50px;
+
+        padding: 50px;
+        border: 1px solid #ffffff; /* 테두리 */
+        background-color: #91c5f2; /* 배경색 */
+        font-size: 25px; /* 글씨 크기 */
+      }
+      
+      #score2 {
+        position: absolute; /* 절대 포지셔닝 */
+      top: 70%; /* 상단에서부터 뷰포트 높이의 절반 */
+      transform: translateY(-80%); /* Y축으로 -50% 이동하여 세로 중앙 정렬 */
+      left: 300px; /* 왼쪽 여백 */
+      padding: 50px;
+      border: 1px solid #ffffff; /* 테두리 */
+      background-color: #91c5f2; /* 배경색 */
+      font-size: 50px; /* 글씨 크기 */
+      }
+      #score3 {
+        position: absolute; /* 절대 포지셔닝 */
+      top: 80%; /* 상단에서부터 뷰포트 높이의 절반 */
+      transform: translateY(-100%); /* Y축으로 -50% 이동하여 세로 중앙 정렬 */
+      left: 650px; /* 왼쪽 여백 */
+      padding: 10px;
+      border: 1px solid #ffffff; /* 테두리 */
+      background-color: #91c5f2; /* 배경색 */
+      font-size: 1px; /* 글씨 크기 */
+      }
+      
+    </style>
+  </head>
+
+
+  
+  <body>
+    <h1>간단한 수박 Size Up</h1>
+    <pre>방향키 : 이동 ← , → , space bar
+    </pre>
+    <div id="score">점수: 0
+      
+    </div>
+
+    <div id="score2">최다점수
+      <ol>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+      </ol>
+    </div>
+    </pre>
+    <div id="score3">.
+      <button id="openPopup">공략 보기</button>
+
+<!-- 팝업 창 -->
+<div id="popup" class="popup">
+    <div class="popup-content">
+        <span class="close">&times;</span>
+    </div>
+</div>
+
+<!-- 팝업 관련 JavaScript 파일 링크 -->
+  <script type="module" src="/src/script.js"></script>
+      
+    </div>
+
+    
+  <script type="module" src="/src/main.js"></script>
+
+  <script>
+ 
+  </script>
+  </body>
+</html>

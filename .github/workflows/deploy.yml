@@ -1,0 +1,48 @@
+name: deploy-to-EB
+
+on:
+  push:
+    branches:
+      - master # 배포를 트리거할 브랜치를 명시해준다.
+    
+  workflow_dispatch:
+    
+jobs:
+  build:
+    runs-on: ubuntu-latest # action이 구동될 OS 환경을 세팅해준다.
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Set up Node # action이 구동될 Node 환경을 세팅해준다.
+        uses: actions/setup-node@v3
+        with:
+          node-version: 18.x
+
+      - name: directory
+        run: mkdir -p ./suike
+
+      - name: npm install # package.json에 있는 의존성 파일들을 설치해준다.
+        working-directory: ./suike
+        run: npm install
+
+      - name: npm compile with babel # babel을 이용하여 es5로의 컴파일을 진행해준다.
+        working-directory: ./suike
+        run: npm run compile # npx babel src --out-dir dist(실제 실행되는 명령어)
+
+      - name: make zip file # 압축 파일을 만들어준다.
+        working-directory: ./suike
+        run: zip -r suike.zip package.json ./dist
+
+      - name: Deploy to EB # Elastic Beanstalk으로 배포를 진행한다.
+        uses: einaregilsson/beanstalk-deploy@v20
+        with:
+          aws_access_key: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws_secret_key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          application_name: wilim-back
+          environment_name: Wilimback-env
+          version_label: ${{ github.run_number }}
+          use_existing_version_if_available: true
+          region: ap-northeast-2
+          deployment_package: ./suike/suike.zip
