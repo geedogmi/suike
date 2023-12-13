@@ -29,7 +29,7 @@ jobs:
 
       - name: make zip file # 압축 파일을 만들어준다.
         working-directory: ./suike
-        run: zip -r suike.zip package.json ./dist
+        run: zip -r suike.zip .
 
       - name: Deploy to EB # Elastic Beanstalk으로 배포를 진행한다.
         uses: einaregilsson/beanstalk-deploy@v20
