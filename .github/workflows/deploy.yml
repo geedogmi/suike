@@ -27,9 +27,15 @@ jobs:
         working-directory: ./suike
         run: npm install
 
+      - name: point
+        run: |
+        pwd
+        ls 
+        cd suike
+        
       - name: make zip file # 압축 파일을 만들어준다.
         working-directory: ./suike
-        run: zip -r suike.zip .
+        run: zip -r suike.zip . -i .
 
       - name: Deploy to EB # Elastic Beanstalk으로 배포를 진행한다.
         uses: einaregilsson/beanstalk-deploy@v20
