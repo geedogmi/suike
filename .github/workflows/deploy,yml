@@ -1,0 +1,40 @@
+name: deploy-to-EB
+
+on:
+  push:
+    branches:
+      - master # 배포를 트리거할 브랜치를 명시합니다.
+  workflow_dispatch:
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest # GitHub Action이 구동될 OS 환경을 설정합니다.
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Set up Node.js 18
+        uses: actions/setup-node@v3
+        with:
+          node-version: '18.x'
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Build project
+        run: npm run build # 'build' 스크립트를 package.json에 정의해야 합니다.
+
+      - name: Zip the build files
+        run: zip -r build.zip . # 모든 파일을 build.zip으로 압축합니다.
+
+      - name: Deploy to AWS Elastic Beanstalk
+        uses: einaregilsson/beanstalk-deploy@v20
+        with:
+          aws_access_key: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws_secret_key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          application_name: supak_game_test
+          environment_name: Supakgametest-env
+          version_label: ${{ github.sha }}
+          region: ap-northeast-2
+          deployment_package: build.zip
