@@ -30,8 +30,7 @@ jobs:
       - name: point
         run: |
           pwd
-            ls 
-            cd suike
+            ls
         
       - name: make zip file # 압축 파일을 만들어준다.
         working-directory: ./suike
